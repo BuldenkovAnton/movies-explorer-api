@@ -35,7 +35,7 @@ const createMySaveMovieSchema = Joi.object({
   image: Joi.string().custom(isUrlMethod, URL_NOT_VALID),
   trailerLink: Joi.string().custom(isUrlMethod, URL_NOT_VALID),
   thumbnail: Joi.string().custom(isUrlMethod, URL_NOT_VALID),
-  movieId: Joi.string().length(24).hex().required(),
+  movieId: Joi.number().required(),
   nameRU: Joi.string().required(),
   nameEN: Joi.string().required(),
 });
