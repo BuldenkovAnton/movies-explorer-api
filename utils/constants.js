@@ -6,6 +6,7 @@ module.exports.MOVIE_NOT_DELETE_NOT_OWNER_MOVIE_ERROR_TEXT = 'Вы не може
 module.exports.EMAIL_NOT_VALID_ERROR_TEXT = 'Неправильный формат почты';
 module.exports.USER_CREDENTIALS_NOT_CORRECT_ERROR_TEXT = 'Неправильные почта или пароль';
 module.exports.USER_REGISTER_SUCCESS_TEXT = 'Пользователь успешно авторизован';
+module.exports.USER_LOGOUT_SUCCESS_TEXT = 'Выход';
 module.exports.USER_REGISTER_ALREADY_CREATE_ERROR_TEXT = 'Пользователь с таким email уже существует';
 module.exports.USER_NOT_FOUND_ERROR_TEXT = 'Пользователь не найден';
 module.exports.USER_NEED_LOGIN_ERROR_TEXT = 'Необходима авторизация';

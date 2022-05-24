@@ -9,6 +9,7 @@ const {
   USER_REGISTER_ALREADY_CREATE_ERROR_TEXT,
   VALIDATION_ERROR_TEXT,
   USER_NOT_FOUND_ERROR_TEXT,
+  USER_LOGOUT_SUCCESS_TEXT,
 } = require('../utils/constants');
 
 const { NotFoundError } = require('../errors/notFound');
@@ -18,7 +19,7 @@ const { ValidationError } = require('../errors/validationError');
 const User = require('../models/users');
 
 module.exports.logout = (req, res) => {
-  res.cookie('jwtToken', '', { 'max-age': -1, sameSite: true /*, domain: 'diplom.buldenkov.nomoredomains.xyz'*/ }).send({ message: 'Выход' });
+  res.cookie('jwtToken', '', { 'max-age': -1, sameSite: true, domain: 'diplom.buldenkov.nomoredomains.xyz' }).send({ message: USER_LOGOUT_SUCCESS_TEXT });
 };
 
 module.exports.login = async (req, res, next) => {
@@ -29,7 +30,7 @@ module.exports.login = async (req, res, next) => {
       expiresIn: 3600,
     });
     return res
-      .cookie('jwtToken', token, { maxAge: 3600000 * 24 * 7, sameSite: true/*, domain: 'diplom.buldenkov.nomoredomains.xyz' */})
+      .cookie('jwtToken', token, { maxAge: 3600000 * 24 * 7, sameSite: true, domain: 'diplom.buldenkov.nomoredomains.xyz' })
       .send({ message: USER_REGISTER_SUCCESS_TEXT });
   } catch (err) {
     return next(err);
