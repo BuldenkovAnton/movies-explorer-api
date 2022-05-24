@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
+const { NotFoundError } = require('../errors/notFound');
 const { ConflictError } = require('../errors/conflict');
 const { ValidationError } = require('../errors/validationError');
 
@@ -50,6 +51,46 @@ module.exports.createUser = async (req, res, next) => {
 
     if (err instanceof mongoose.Error.ValidationError) {
       return next(new ValidationError('Переданы некорректные данные при создании пользователя'));
+    }
+
+    return next(err);
+  }
+};
+
+module.exports.getMyProfile = async (req, res, next) => {
+  try {
+    const { _id: userId } = req.user;
+    if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
+      throw new ValidationError('Переданы некорректные данные пользователя');
+    }
+
+    const user = await User.findById(userId);
+    if (!user) throw new NotFoundError('Пользователь не найден');
+
+    return res.send({ data: user });
+  } catch (err) {
+    return next(err);
+  }
+};
+
+module.exports.updateMyProfile = async (req, res, next) => {
+  try {
+    const { _id: userId } = req.user;
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        ...req.body,
+      },
+      { runValidators: true, new: true },
+    );
+
+    if (!user) throw new NotFoundError('Пользователь не найден');
+
+    return res.send({ data: user });
+  } catch (err) {
+    if (err instanceof mongoose.Error.ValidationError) {
+      return next(new ValidationError('Переданы некорректные данные при обновлении пользователя'));
     }
 
     return next(err);

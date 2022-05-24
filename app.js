@@ -11,6 +11,7 @@ const { handleError } = require('./middlewares/errors');
 const { NotFoundError } = require('./errors/notFound');
 const { signinSchema, signupSchema } = require('./middlewares/validator');
 
+const userRoutes = require('./routes/users');
 const { login, createUser, logout } = require('./controllers/userController');
 
 mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
@@ -27,6 +28,8 @@ app.use(requestLogger);
 app.post('/signin', celebrate({ body: signinSchema }), login);
 app.post('/signup', celebrate({ body: signupSchema }), createUser);
 app.post('/signout', auth, logout);
+
+app.use('/users', auth, userRoutes);
 
 app.use('*', auth, (req, res, next) => next(new NotFoundError('Страница не найдена')));
 
