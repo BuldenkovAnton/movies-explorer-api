@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { URL_NOT_VALID } = require('../utils/constants');
 const { isUrl } = require('../middlewares/validator');
 
 const movieSchema = new mongoose.Schema({
@@ -26,21 +27,21 @@ const movieSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: (v) => isUrl(v),
-      message: (props) => `${props.value} is not a valid url`,
+      message: (props) => `${props.value} ${URL_NOT_VALID}`,
     },
   },
   trailerLink: {
     type: String,
     validate: {
       validator: (v) => isUrl(v),
-      message: (props) => `${props.value} is not a valid url`,
+      message: (props) => `${props.value} ${URL_NOT_VALID}`,
     },
   },
   thumbnail: {
     type: String,
     validate: {
       validator: (v) => isUrl(v),
-      message: (props) => `${props.value} is not a valid url`,
+      message: (props) => `${props.value} ${URL_NOT_VALID}`,
     },
   },
   owner: {

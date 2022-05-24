@@ -1,0 +1,12 @@
+module.exports.PAGE_NOT_FOUND_ERROR_TEXT = 'Страница не найдена';
+module.exports.URL_NOT_VALID = 'url not valid';
+module.exports.VALIDATION_ERROR_TEXT = 'Переданы некорректные данные';
+module.exports.MOVIE_NOT_FOUND_ERROR_TEXT = 'Фильм не найден';
+module.exports.MOVIE_NOT_DELETE_NOT_OWNER_MOVIE_ERROR_TEXT = 'Вы не можете удалить чужой фильм';
+module.exports.EMAIL_NOT_VALID_ERROR_TEXT = 'Неправильный формат почты';
+module.exports.USER_CREDENTIALS_NOT_CORRECT_ERROR_TEXT = 'Неправильные почта или пароль';
+module.exports.USER_REGISTER_SUCCESS_TEXT = 'Пользователь успешно авторизован';
+module.exports.USER_REGISTER_ALREADY_CREATE_ERROR_TEXT = 'Пользователь с таким email уже существует';
+module.exports.USER_NOT_FOUND_ERROR_TEXT = 'Пользователь не найден';
+module.exports.USER_NEED_LOGIN_ERROR_TEXT = 'Необходима авторизация';
+module.exports.SERVER_ERROR_TEXT = 'Произошла ошибка';

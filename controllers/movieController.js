@@ -1,4 +1,11 @@
 const mongoose = require('mongoose');
+
+const {
+  VALIDATION_ERROR_TEXT,
+  MOVIE_NOT_FOUND_ERROR_TEXT,
+  MOVIE_NOT_DELETE_NOT_OWNER_MOVIE_ERROR_TEXT,
+} = require('../utils/constants');
+
 const { ForbiddenError } = require('../errors/forbidden');
 const { NotFoundError } = require('../errors/notFound');
 const { ValidationError } = require('../errors/validationError');
@@ -23,7 +30,7 @@ module.exports.createMySaveMovies = async (req, res, next) => {
     return res.send({ data: movie });
   } catch (err) {
     if (err instanceof mongoose.Error.ValidationError) {
-      return next(new ValidationError('Переданы некорректные данные при создании фильма'));
+      return next(new ValidationError(VALIDATION_ERROR_TEXT));
     }
 
     return next(err);
@@ -33,12 +40,12 @@ module.exports.createMySaveMovies = async (req, res, next) => {
 module.exports.deleteMySaveMovieById = async (req, res, next) => {
   try {
     const movie = await Movie.findById(req.params.movieId);
-    if (!movie) throw new NotFoundError('Фильм не найден');
+    if (!movie) throw new NotFoundError(MOVIE_NOT_FOUND_ERROR_TEXT);
 
     await movie.populate('owner', '_id');
 
     if (movie.owner._id.toString() !== req.user._id) {
-      throw new ForbiddenError('Вы не можете удалить чужую карточку');
+      throw new ForbiddenError(MOVIE_NOT_DELETE_NOT_OWNER_MOVIE_ERROR_TEXT);
     }
 
     await Movie.findByIdAndDelete(req.params.movieId);

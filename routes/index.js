@@ -3,6 +3,7 @@ const { celebrate } = require('celebrate');
 
 const { auth } = require('../middlewares/auth');
 const { signinSchema, signupSchema } = require('../middlewares/validator');
+const { PAGE_NOT_FOUND_ERROR_TEXT } = require('../utils/constants');
 const { NotFoundError } = require('../errors/notFound');
 
 const userRoutes = require('./users');
@@ -15,6 +16,6 @@ router.post('/signout', auth, logout);
 
 router.use('/users', auth, userRoutes);
 router.use('/movies', auth, movieRoutes);
-router.use('*', auth, (req, res, next) => next(new NotFoundError('Страница не найдена')));
+router.use('*', auth, (req, res, next) => next(new NotFoundError(PAGE_NOT_FOUND_ERROR_TEXT)));
 
 module.exports = router;
