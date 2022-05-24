@@ -9,6 +9,10 @@ const { ValidationError } = require('../errors/validationError');
 
 const User = require('../models/users');
 
+module.exports.logout = (req, res) => {
+  res.cookie('jwtToken', '', { 'max-age': -1, sameSite: true }).send({ message: 'Выход' });
+};
+
 module.exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
