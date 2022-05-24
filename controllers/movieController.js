@@ -39,7 +39,7 @@ module.exports.createMySaveMovies = async (req, res, next) => {
 
 module.exports.deleteMySaveMovieById = async (req, res, next) => {
   try {
-    const movie = await Movie.findById(req.params.movieId);
+    const movie = await Movie.findOne({ movieId: req.params.movieId });
     if (!movie) throw new NotFoundError(MOVIE_NOT_FOUND_ERROR_TEXT);
 
     await movie.populate('owner', '_id');
@@ -48,7 +48,7 @@ module.exports.deleteMySaveMovieById = async (req, res, next) => {
       throw new ForbiddenError(MOVIE_NOT_DELETE_NOT_OWNER_MOVIE_ERROR_TEXT);
     }
 
-    await Movie.findByIdAndDelete(req.params.movieId);
+    await Movie.findByIdAndDelete(movie._id);
 
     return res.send({ data: movie });
   } catch (err) {
