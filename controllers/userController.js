@@ -16,7 +16,7 @@ const { NotFoundError } = require('../errors/notFound');
 const { ConflictError } = require('../errors/conflict');
 const { ValidationError } = require('../errors/validationError');
 
-const User = require('../models/users');
+const User = require('../models/user');
 
 module.exports.logout = (req, res) => {
   res.cookie('jwtToken', '', { 'max-age': -1, sameSite: true, domain: 'diplom.buldenkov.nomoredomains.xyz' }).send({ message: USER_LOGOUT_SUCCESS_TEXT });
