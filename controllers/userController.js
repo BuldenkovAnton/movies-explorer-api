@@ -11,7 +11,7 @@ const { ValidationError } = require('../errors/validationError');
 const User = require('../models/users');
 
 module.exports.logout = (req, res) => {
-  res.cookie('jwtToken', '', { 'max-age': -1, sameSite: true }).send({ message: 'Выход' });
+  res.cookie('jwtToken', '', { 'max-age': -1, sameSite: true, domain: 'diplom.buldenkov.nomoredomains.xyz' }).send({ message: 'Выход' });
 };
 
 module.exports.login = async (req, res, next) => {
@@ -22,7 +22,7 @@ module.exports.login = async (req, res, next) => {
       expiresIn: 3600,
     });
     return res
-      .cookie('jwtToken', token, { maxAge: 3600000 * 24 * 7, sameSite: true })
+      .cookie('jwtToken', token, { maxAge: 3600000 * 24 * 7, sameSite: true, domain: 'diplom.buldenkov.nomoredomains.xyz' })
       .send({ message: 'Пользователь успешно авторизован' });
   } catch (err) {
     return next(err);
