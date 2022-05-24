@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const { celebrate, errors } = require('celebrate');
+const { cors } = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { auth } = require('./middlewares/auth');
 const { handleError } = require('./middlewares/errors');
@@ -20,6 +21,7 @@ mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
 const app = express();
 const { PORT = 3000 } = process.env;
 
+app.use(cors);
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
