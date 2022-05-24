@@ -1,5 +1,7 @@
 const { Joi } = require('celebrate');
 
+const isUrl = (value) => /^((https|http):\/\/)(www.)?([a-z0-9-.]*\.[a-z]*)(\/[a-zA-Z0-9#-_]+\/?)*$/mg.test(value);
+
 const signinSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
@@ -20,4 +22,5 @@ module.exports = {
   signinSchema,
   signupSchema,
   updateMyProfileSchema,
+  isUrl,
 };
