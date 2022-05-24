@@ -2,7 +2,6 @@
 API для проекта Movies Explorer
 
 **Стек**
-В работе использовались следующие технологии: 
 * node + express.js
 * mongodb
 
