@@ -6,9 +6,9 @@ const bodyParser = require('body-parser');
 const { celebrate, errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { handleError } = require('./middlewares/errors');
-const { signupSchema } = require('./middlewares/validator');
+const { signinSchema, signupSchema } = require('./middlewares/validator');
 
-const { createUser } = require('./controllers/userController');
+const { login, createUser } = require('./controllers/userController');
 
 mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
 
@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 
 app.use(requestLogger);
 
+app.post('/signin', celebrate({ body: signinSchema }), login);
 app.post('/signup', celebrate({ body: signupSchema }), createUser);
 
 app.use(errorLogger);
