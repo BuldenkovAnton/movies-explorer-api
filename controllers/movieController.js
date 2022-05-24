@@ -5,6 +5,15 @@ const { ValidationError } = require('../errors/validationError');
 
 const Movie = require('../models/movie');
 
+module.exports.getMySaveMovies = (req, res, next) => {
+  const { _id: owner } = req.user;
+
+  Movie.find({ owner })
+    .populate('owner')
+    .then((movies) => res.send({ data: movies }))
+    .catch(next);
+};
+
 module.exports.createMySaveMovies = async (req, res, next) => {
   try {
     const { _id: owner } = req.user;
