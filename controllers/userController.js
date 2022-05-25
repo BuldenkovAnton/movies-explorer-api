@@ -19,7 +19,7 @@ const { ValidationError } = require('../errors/validationError');
 const User = require('../models/user');
 
 module.exports.logout = (req, res) => {
-  res.cookie('jwtToken', '', { 'max-age': -1, sameSite: true, domain: 'diplom.buldenkov.nomoredomains.xyz' }).send({ message: USER_LOGOUT_SUCCESS_TEXT });
+  res.cookie('jwtToken', '', { 'max-age': -1 }).send({ message: USER_LOGOUT_SUCCESS_TEXT });
 };
 
 module.exports.login = async (req, res, next) => {
@@ -30,7 +30,7 @@ module.exports.login = async (req, res, next) => {
       expiresIn: 3600,
     });
     return res
-      .cookie('jwtToken', token, { maxAge: 3600000 * 24 * 7, sameSite: true, domain: 'diplom.buldenkov.nomoredomains.xyz' })
+      .cookie('jwtToken', token, { maxAge: 3600000 * 24 * 7 })
       .send({ message: USER_REGISTER_SUCCESS_TEXT });
   } catch (err) {
     return next(err);
