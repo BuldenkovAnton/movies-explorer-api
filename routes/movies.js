@@ -6,6 +6,6 @@ const { getMySaveMovies, createMySaveMovies, deleteMySaveMovieById } = require('
 
 router.get('/', getMySaveMovies);
 router.post('/', celebrate({ body: createMySaveMovieSchema }), createMySaveMovies);
-router.delete('/:movieId', celebrate({ params: deleteMySaveMovieSchema }), deleteMySaveMovieById);
+router.delete('/:id', celebrate({ params: deleteMySaveMovieSchema }), deleteMySaveMovieById);
 
 module.exports = router;

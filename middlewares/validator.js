@@ -41,7 +41,7 @@ const createMySaveMovieSchema = Joi.object({
 });
 
 const deleteMySaveMovieSchema = Joi.object({
-  movieId: Joi.number().required(),
+  id: Joi.string().length(24).hex().required(),
 });
 
 module.exports = {
