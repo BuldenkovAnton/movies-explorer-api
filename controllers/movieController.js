@@ -40,9 +40,7 @@ module.exports.deleteMySaveMovieById = async (req, res, next) => {
     const movie = await Movie.findById(req.params.id);
     if (!movie) throw new NotFoundError(MOVIE_NOT_FOUND_ERROR_TEXT);
 
-    await movie.populate('owner', '_id');
-
-    if (movie.owner._id.toString() !== req.user._id) {
+    if (movie.owner.toString() !== req.user._id) {
       throw new ForbiddenError(MOVIE_NOT_DELETE_NOT_OWNER_MOVIE_ERROR_TEXT);
     }
 
