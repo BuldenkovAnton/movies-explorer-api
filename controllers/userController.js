@@ -85,6 +85,9 @@ module.exports.updateMyProfile = async (req, res, next) => {
   try {
     const { _id: userId } = req.user;
 
+    const userConflict = await User.findOne({ email: req.body.email });
+    if (userConflict) throw new ConflictError(USER_REGISTER_ALREADY_CREATE_ERROR_TEXT);
+
     const user = await User.findByIdAndUpdate(
       userId,
       {
