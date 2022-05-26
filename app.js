@@ -23,8 +23,8 @@ mongoose.connect(
 const app = express();
 const { PORT = 3000 } = process.env;
 
-app.use(requestLogger);
 app.use(cors);
+app.use(requestLogger);
 app.use(limiter);
 app.use(helmet());
 app.use(cookieParser());
