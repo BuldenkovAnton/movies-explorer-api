@@ -23,14 +23,13 @@ mongoose.connect(
 const app = express();
 const { PORT = 3000 } = process.env;
 
+app.use(requestLogger);
 app.use(cors);
 app.use(limiter);
 app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-app.use(requestLogger);
 
 app.use('/', appRoutes);
 
