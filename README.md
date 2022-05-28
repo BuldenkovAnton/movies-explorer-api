@@ -1,8 +1,10 @@
 # Backend Movies Explorer
 API для проекта Movies Explorer
 
+[api.diplom.buldenkov.nomoredomains.xyz](https://api.diplom.buldenkov.nomoredomains.xyz)
+IP: 51.250.98.222
+
 **Стек**
-В работе использовались следующие технологии: 
 * node + express.js
 * mongodb
 
