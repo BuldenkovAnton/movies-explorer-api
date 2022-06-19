@@ -19,7 +19,7 @@ const { ValidationError } = require('../errors/validationError');
 const User = require('../models/user');
 
 module.exports.logout = (req, res) => {
-  res.cookie('jwtToken', '', { 'max-age': -1 }).send({ message: USER_LOGOUT_SUCCESS_TEXT });
+  res.cookie('jwtToken', '', { 'max-age': -1, domain: 'diplom.buldenkov.nomoredomains.xyz' }).send({ message: USER_LOGOUT_SUCCESS_TEXT });
 };
 
 module.exports.login = async (req, res, next) => {
@@ -28,6 +28,7 @@ module.exports.login = async (req, res, next) => {
     const user = await User.findUserByCredentials(email, password);
     const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', {
       expiresIn: 3600,
+      domain: 'diplom.buldenkov.nomoredomains.xyz',
     });
     return res
       .cookie('jwtToken', token, { maxAge: 3600000 * 24 * 7 })
@@ -45,6 +46,8 @@ module.exports.createUser = async (req, res, next) => {
       ...req.body,
       password: hash,
     });
+
+    console.log(user.name, user.email);
 
     const sendUser = {
       name: user.name,
