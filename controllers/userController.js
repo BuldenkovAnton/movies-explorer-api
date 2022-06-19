@@ -27,11 +27,10 @@ module.exports.login = async (req, res, next) => {
   try {
     const user = await User.findUserByCredentials(email, password);
     const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', {
-      expiresIn: 3600,
-      domain: 'diplom.buldenkov.nomoredomains.xyz',
+      expiresIn: 36000,
     });
     return res
-      .cookie('jwtToken', token, { maxAge: 3600000 * 24 * 7 })
+      .cookie('jwtToken', token, { maxAge: 3600000 * 24 * 7, domain: 'diplom.buldenkov.nomoredomains.xyz' })
       .send({ message: USER_REGISTER_SUCCESS_TEXT });
   } catch (err) {
     return next(err);
